@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -17,6 +18,7 @@ class Book(models.Model):
     stock = models.IntegerField(verbose_name="Акции")
     description = models.TextField(verbose_name="Описание")
     imageUrl = models.ImageField(upload_to="uploads", blank=True, null=True)
+    created_by = models.ForeignKey("auth.User", related_name="books", on_delete=models.CASCADE, null=True)
     status = models.BooleanField(verbose_name="статус", default=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -34,6 +36,7 @@ class Product(models.Model):
     quantity = models.IntegerField(verbose_name="количество", default=0)
     description = models.TextField(verbose_name="описание")
     imageUrl = models.ImageField(upload_to="uploads", blank=True, null=True)
+    created_by = models.ForeignKey("auth.User", related_name="products", on_delete=models.CASCADE, null=True)
     status = models.BooleanField(verbose_name="статус", default=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -41,6 +44,6 @@ class Product(models.Model):
         ordering = ['-date_created']
 
     def __str__(self):
-        return '{} {}'.format(self.product_tag, self.title)
+        return self.title
 
 

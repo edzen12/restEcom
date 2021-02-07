@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import CategorySerializer, BookSerializer, ProductSerializer
+from django.contrib.auth.models import User
+from .serializers import CategorySerializer, BookSerializer, ProductSerializer, UserSerializer
 from .models import Category, Book, Product
 
 
@@ -32,3 +33,13 @@ class ListProduct(generics.ListCreateAPIView):
 class DetailProduct(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+
+class ListUser(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class DetailUser(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
